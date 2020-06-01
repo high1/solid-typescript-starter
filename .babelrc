@@ -1,0 +1,12 @@
+{
+  "presets": [
+    "solid",
+    "@babel/typescript",
+    [
+      "@babel/preset-env",
+      {
+        "useBuiltIns": "entry"
+      }
+    ]
+  ]
+}
