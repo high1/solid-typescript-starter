@@ -1,7 +1,7 @@
 # solid-typescript-starter
-Typescript starter for Solid framework
+Typescript starter for [Solid](https://github.com/ryansolid/solid) framework
 
-This is a WIP progress repo for an easier Typescript start with [Solid](https://github.com/ryansolid/solid) framework.
+This is a WIP progress repo for an easier Typescript start with Solid.
 
 Uses webpack for bundling, Typescript for static typing, ESLint for linting the code and Prettier for automatic code formatting if VSCode is used.
 
