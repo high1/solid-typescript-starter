@@ -9,6 +9,10 @@ Uses webpack for bundling, Typescript for static typing, ESLint for linting the 
 
 Install dependencies with `npm install`.
 
+* Unit test
+
+Jest (TS-Jest) and Testing Library (DOM part) are used for POC unit tests.
+
 * To do
 - Improve and maybe separate Webpack configuration builds for development and production
 - Use better assets - atm, the logo is just cropped from the logo with name
