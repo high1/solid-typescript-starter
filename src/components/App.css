@@ -15,7 +15,7 @@
 }
 
 .AppLink {
-  color: #5485c8;
+  color: #4483c1;
 }
 
 .AppLogo {
@@ -26,7 +26,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .AppLogo {
-    animation: App-logo-spin infinite 1.6s ease-in-out alternate;
+    animation: App-logo-spin infinite 2s ease-in-out alternate;
   }
 }
 
