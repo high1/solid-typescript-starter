@@ -1,6 +1,6 @@
 import { Component } from 'solid-js';
 
-import logo from 'assets/logo.png';
+import logo from 'assets/logo.svg';
 import styles from 'components/App.css';
 
 const App: Component = () => (
@@ -12,7 +12,7 @@ const App: Component = () => (
       </p>
       <a
         class={styles.AppLink}
-        href="https://github.com/ryansolid/solid/blob/master/README.md"
+        href="https://solidjs.com"
         target="_blank"
         rel="noopener noreferrer"
       >

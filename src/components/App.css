@@ -22,7 +22,12 @@
   height: 40vmin;
   pointer-events: none;
   margin-bottom: 1.0rem;
-  animation: App-logo-spin infinite 1.6s ease-in-out alternate;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .AppLogo {
+    animation: App-logo-spin infinite 1.6s ease-in-out alternate;
+  }
 }
 
 @keyframes App-logo-spin {
