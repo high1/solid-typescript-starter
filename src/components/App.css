@@ -26,7 +26,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .AppLogo {
-    animation: App-logo-spin infinite 2s ease-in-out alternate;
+    animation: App-logo-spin infinite 1.5s ease-in-out alternate;
   }
 }
 

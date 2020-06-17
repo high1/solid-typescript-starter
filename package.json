@@ -16,6 +16,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "clean-webpack-plugin": "^3.0.0",
     "solid-js": "^0.18.7"
   },
   "devDependencies": {

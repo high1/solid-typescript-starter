@@ -5,6 +5,7 @@ import TerserWebackPlugin from 'terser-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 
 const config = (_env: unknown, { mode = 'none' }: Configuration): Configuration => ({
   mode,
@@ -58,7 +59,7 @@ const config = (_env: unknown, { mode = 'none' }: Configuration): Configuration 
       template: 'src/index.html',
     }),
     new MiniCssExtractPlugin(),
-    ...(mode === 'development' ? [new ForkTsCheckerWebpackPlugin()] : []),
+    ...(mode === 'development' ? [new ForkTsCheckerWebpackPlugin()] : [new CleanWebpackPlugin()]),
   ],
   optimization: {
     minimizer: [
