@@ -1,0 +1,20 @@
+{
+  "presets": [
+    "solid",
+    "@babel/typescript"
+  ],
+  "env": {
+    "test": {
+      "presets": [
+        [
+          "@babel/env",
+          {
+            "targets": {
+              "node": true
+            }
+          }
+        ]
+      ]
+    }
+  }
+}

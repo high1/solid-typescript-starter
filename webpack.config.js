@@ -1,15 +1,21 @@
-import { Configuration } from 'webpack';
-import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import TerserWebackPlugin from 'terser-webpack-plugin';
-import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+const { HotModuleReplacementPlugin } = require('webpack');
+const { TsconfigPathsPlugin } = require('tsconfig-paths-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const TerserWebackPlugin = require('terser-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 
-const config = (_env: unknown, { mode = 'none' }: Configuration): Configuration => ({
+module.exports = (_, { mode = 'none' }) => ({
   mode,
   devtool: mode === 'development' ? 'inline-source-map' : false,
+  devServer: {
+    port: 3000,
+    hot: true,
+  },
+  target: mode === 'development' ? 'web' : 'browserslist',
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
     plugins: [new TsconfigPathsPlugin({})],
@@ -21,36 +27,24 @@ const config = (_env: unknown, { mode = 'none' }: Configuration): Configuration 
         exclude: /node_modules/,
         use: [
           {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              hmr: mode === 'development',
-            },
+            loader: mode === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
           },
           {
             loader: 'css-loader',
             options: {
-              modules: true,
+              modules: { auto: true },
             },
           },
         ],
       },
       {
         test: /\.(png|jpe?g|gif|svg)$/i,
-        loader: 'file-loader',
+        type: 'asset/resource',
       },
       {
-        test: /\.tsx?$/,
+        test: /\.tsx?$/i,
         exclude: /node_modules/,
         loader: 'babel-loader',
-      },
-      {
-        enforce: 'pre',
-        test: /\.tsx?$/,
-        exclude: /node_modules/,
-        loader: 'eslint-loader',
-        options: {
-          emitError: true,
-        },
       },
     ],
   },
@@ -58,12 +52,19 @@ const config = (_env: unknown, { mode = 'none' }: Configuration): Configuration 
     new HtmlWebpackPlugin({
       template: 'src/index.html',
     }),
-    new MiniCssExtractPlugin(),
-    ...(mode === 'development' ? [new ForkTsCheckerWebpackPlugin()] : [new CleanWebpackPlugin()]),
+    ...(mode === 'development'
+      ? [new ForkTsCheckerWebpackPlugin(), new HotModuleReplacementPlugin()]
+      : [
+          new MiniCssExtractPlugin(),
+          new ESLintPlugin({
+            emitError: true,
+          }),
+          new CleanWebpackPlugin(),
+        ]),
   ],
   optimization: {
     minimizer: [
-      ...(mode === 'development' ? [] : [new TerserWebackPlugin(), new OptimizeCSSAssetsPlugin()]),
+      ...(mode === 'development' ? [] : [new TerserWebackPlugin(), new CssMinimizerPlugin()]),
     ],
     runtimeChunk: mode === 'development' ? undefined : 'single',
     splitChunks:
@@ -76,7 +77,7 @@ const config = (_env: unknown, { mode = 'none' }: Configuration): Configuration 
             cacheGroups: {
               vendor: {
                 test: /[\\/]node_modules[\\/]/,
-                name({ context }: { context: string }): string | null {
+                name({ context }) {
                   if (context) {
                     const [, name] = /[\\/]node_modules[\\/](.*?)([\\/]|$)/.exec(context) || [];
                     return name.replace('@', '');
@@ -88,5 +89,3 @@ const config = (_env: unknown, { mode = 'none' }: Configuration): Configuration 
           },
   },
 });
-
-export default config;

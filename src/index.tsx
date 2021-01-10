@@ -1,5 +1,11 @@
-import { render, MountableElement } from 'solid-js/dom';
+import { render } from 'solid-js/dom';
 
 import App from 'components/App';
+import 'index.css';
 
-render(() => <App />, document.getElementById('app') as MountableElement);
+const root = document.getElementById('app');
+if (root) {
+  const dispose = render(() => <App />, root);
+  module?.hot?.accept();
+  module?.hot?.dispose(() => dispose());
+}
