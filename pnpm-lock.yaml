@@ -1,4 +1,5 @@
 dependencies:
+  clsx: 1.1.1
   core-js: 3.8.2
   regenerator-runtime: 0.13.7
   solid-js: 0.23.10
@@ -2791,6 +2792,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-t6wbgtoCXvAzst7QgXxJYqPt0usEfbgQdftEPbLL/cvv6HPE5VgvqCuAIDR0NgU52ds6rFwqrgakNLrHEjCbrQ==
+  /clsx/1.1.1:
+    dev: false
+    engines:
+      node: '>=6'
+    resolution:
+      integrity: sha512-6/bPho624p3S2pMyvP5kKBPXnI3ufHLObBFCfgx+LkeR5lg2XYy2hqZqUf45ypD8COn2bhgGJSUE+l5dhNBieA==
   /co/4.6.0:
     dev: true
     engines:
@@ -10056,6 +10063,7 @@ specifiers:
   babel-loader: ^8.2.2
   babel-preset-solid: ^0.23.8
   clean-webpack-plugin: ^3.0.0
+  clsx: ^1.1.1
   core-js: '3'
   css-loader: ^5.0.1
   css-minimizer-webpack-plugin: ^1.2.0

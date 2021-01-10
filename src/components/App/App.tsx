@@ -1,4 +1,5 @@
 import { Component, createSignal, onCleanup } from 'solid-js';
+import clsx from 'clsx';
 
 import logo from 'assets/logo.svg';
 import wordmark from 'assets/wordmark.svg';
@@ -10,15 +11,20 @@ const App: Component = () => {
   onCleanup(() => clearInterval(timer));
   return (
     <>
-      <header class={styles.header}>
-        <img src={logo} class={styles.logo} alt="logo" />
+      <header
+        class={clsx(
+          styles.header,
+          'min-h-screen flex flex-col justify-center items-center text-center'
+        )}
+      >
+        <img src={logo} class={clsx(styles.logo, 'pointer-events-none mb-4')} alt="logo" />
         <a
           class={styles.link}
           href="https://github.com/ryansolid/solid#documentation"
           target="_blank"
           rel="noopener noreferrer"
         >
-          <img src={wordmark} class={`${styles.wordmark} my-4`} alt="wordmark" />
+          <img src={wordmark} class={clsx(styles.wordmark, 'my-4')} alt="wordmark" />
         </a>
         <p class="my-4">
           Edit <code>src/App.tsx</code> and save to reload.

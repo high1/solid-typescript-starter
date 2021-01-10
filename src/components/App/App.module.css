@@ -1,13 +1,7 @@
 .header {
   background-color: #282c34;
   color: whitesmoke;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   font-size: calc(10px + 2vmin);
-  text-align: center;
 }
 
 .link {
@@ -21,8 +15,10 @@
 
 .logo {
   height: 40vmin;
-  pointer-events: none;
-  margin-bottom: 1.0rem;
+}
+
+.wordmark {
+  height: 7vmin;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -31,16 +27,9 @@
   }
 }
 
-.wordmark {
-  height: 5vmin;
-  /* margin: 1rem 0; */
-}
-
 :global code {
   background: #FFF3;
   @apply rounded-md p-2;
-  /* padding: 4px 8px; */
-  /* border-radius: 4px; */
 }
 
 @keyframes spin {
