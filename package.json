@@ -4,13 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "cross-env NODE_ENV=production webpack --mode production",
     "coverage": "jest --coverage",
-    "dev": "webpack serve --mode development",
+    "dev": "cross-env NODE_ENV=development webpack serve --mode development",
     "lint": "eslint --ext .ts,.tsx src/",
     "open:coverage": "npm run coverage && open-cli ./coverage/lcov-report/index.html",
     "start": "npm run dev -- --open",
-    "test": "jest"
+    "test": "cross-env NODE_ENV=test jest"
   },
   "keywords": [],
   "author": "",
@@ -34,6 +34,7 @@
     "babel-loader": "^8.2.2",
     "babel-preset-solid": "^0.23.8",
     "clean-webpack-plugin": "^3.0.0",
+    "cross-env": "^7.0.3",
     "css-loader": "^5.0.1",
     "css-minimizer-webpack-plugin": "^1.2.0",
     "eslint": "^7.17.0",

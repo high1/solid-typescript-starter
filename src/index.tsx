@@ -5,7 +5,6 @@ import 'index.css';
 
 if (__MODE__ === 'production') {
   // required for babel env preset
-  console.log(__MODE__);
   require('core-js/stable');
   require('regenerator-runtime');
 }

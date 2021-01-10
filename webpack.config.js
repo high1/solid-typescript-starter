@@ -59,6 +59,7 @@ module.exports = (_, { mode = 'none' }) => ({
     }),
     new DefinePlugin({
       __MODE__: JSON.stringify(mode),
+      'process.env.NODE_ENV': JSON.stringify(mode),
     }),
     ...(mode === 'development'
       ? [new ForkTsCheckerWebpackPlugin(), new HotModuleReplacementPlugin()]
