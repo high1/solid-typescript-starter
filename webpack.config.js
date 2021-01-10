@@ -39,6 +39,7 @@ module.exports = (_, { mode = 'none' }) => ({
               modules: { auto: true },
             },
           },
+          'postcss-loader',
         ],
       },
       {

@@ -18,12 +18,12 @@ const App: Component = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <img src={wordmark} class={styles.wordmark} alt="wordmark" />
+          <img src={wordmark} class={`${styles.wordmark} my-4`} alt="wordmark" />
         </a>
-        <p>
+        <p class="my-4">
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
-        <p>
+        <p class="my-4">
           Page has been open for <code>{count}</code> seconds.
         </p>
         {/* <a class={styles.link} href="https://solidjs.com" target="_blank" rel="noopener noreferrer">

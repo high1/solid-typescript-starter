@@ -33,13 +33,14 @@
 
 .wordmark {
   height: 5vmin;
-  margin: 1rem 0;
+  /* margin: 1rem 0; */
 }
 
 :global code {
   background: #FFF3;
-  padding: 4px 8px;
-  border-radius: 4px;
+  @apply rounded-md p-2;
+  /* padding: 4px 8px; */
+  /* border-radius: 4px; */
 }
 
 @keyframes spin {
