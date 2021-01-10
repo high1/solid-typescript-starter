@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "cross-env NODE_ENV=production webpack --mode production",
+    "build": "tsc --noEmit && cross-env NODE_ENV=production webpack --mode production",
     "coverage": "jest --coverage",
     "dev": "cross-env NODE_ENV=development webpack serve --mode development",
     "lint": "eslint --ext .ts,.tsx src/",
