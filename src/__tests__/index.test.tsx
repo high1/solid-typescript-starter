@@ -6,5 +6,4 @@ test('renders without crashing', () => {
   document.body.appendChild(app);
   require('index');
   expect(app).toContainElement(screen.queryByRole('img', { name: /logo/i }));
-  //expect(getByRole(app, 'link')).toHaveTextContent('Learn Solid');
 });

@@ -1,7 +1,6 @@
 .header {
   background-color: #282c34;
-  color: whitesmoke
-  ;
+  color: whitesmoke;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -12,7 +11,12 @@
 }
 
 .link {
+  padding: 1rem;
   color: #4483c1;
+}
+
+.link:focus {
+  outline: thin dashed;
 }
 
 .logo {
@@ -23,13 +27,13 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .logo {
-    animation: spin infinite 1.5s ease-in-out alternate;
+    animation: spin infinite 1.5s linear alternate;
   }
 }
 
 .wordmark {
   height: 5vmin;
-  margin: 2rem 0;
+  margin: 1rem 0;
 }
 
 :global code {
@@ -40,9 +44,9 @@
 
 @keyframes spin {
   from {
-    transform: scale(1);
+    scale: 1;
   }
   to {
-    transform: scale(1.05);
+    scale: 1.05;
   }
 }

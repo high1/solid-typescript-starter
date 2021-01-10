@@ -1,8 +1,5 @@
 {
-  "presets": [
-    "solid",
-    "@babel/typescript"
-  ],
+  "presets": ["solid", "@babel/typescript"],
   "env": {
     "test": {
       "presets": [
@@ -10,8 +7,20 @@
           "@babel/env",
           {
             "targets": {
-              "node": true
+              "node": "current"
             }
+          }
+        ]
+      ]
+    },
+    "production": {
+      "presets": [
+        [
+          "@babel/env",
+          {
+            "useBuiltIns": "entry",
+            "corejs": 3,
+            "exclude": ["transform-typeof-symbol"]
           }
         ]
       ]

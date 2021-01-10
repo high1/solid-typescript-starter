@@ -1,4 +1,4 @@
-const { HotModuleReplacementPlugin } = require('webpack');
+const { DefinePlugin, HotModuleReplacementPlugin } = require('webpack');
 const { TsconfigPathsPlugin } = require('tsconfig-paths-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserWebackPlugin = require('terser-webpack-plugin');
@@ -7,9 +7,13 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const { resolve } = require('path');
 
 module.exports = (_, { mode = 'none' }) => ({
   mode,
+  output: {
+    path: resolve(process.cwd(), 'dist'),
+  },
   devtool: mode === 'development' ? 'inline-source-map' : false,
   devServer: {
     port: 3000,
@@ -52,6 +56,9 @@ module.exports = (_, { mode = 'none' }) => ({
     new HtmlWebpackPlugin({
       template: 'src/index.html',
     }),
+    new DefinePlugin({
+      __MODE__: JSON.stringify(mode),
+    }),
     ...(mode === 'development'
       ? [new ForkTsCheckerWebpackPlugin(), new HotModuleReplacementPlugin()]
       : [
@@ -79,7 +86,8 @@ module.exports = (_, { mode = 'none' }) => ({
                 test: /[\\/]node_modules[\\/]/,
                 name({ context }) {
                   if (context) {
-                    const [, name] = /[\\/]node_modules[\\/](.*?)([\\/]|$)/.exec(context) || [];
+                    const [, name] =
+                      /[\\/]node_modules(?:\\.pnpm)?[\\/](.*?)(?:[\\/]|$)/.exec(context) || [];
                     return name.replace('@', '');
                   }
                   return null;

@@ -5,15 +5,12 @@
     "es6": true,
     "node": true
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:prettier/recommended"
-  ],
+  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
   },
-  "parser": "@babel/eslint-parser",
+  // "parser": "@babel/eslint-parser",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -21,15 +18,10 @@
     "ecmaVersion": 2020,
     "sourceType": "module"
   },
-  "ignorePatterns": [
-    "dist/*"
-  ],
+  "ignorePatterns": ["dist/*"],
   "overrides": [
     {
-      "files": [
-        "*.ts",
-        "*.tsx"
-      ],
+      "files": ["*.ts", "*.tsx"],
       "parser": "@typescript-eslint/parser",
       "extends": [
         "eslint:recommended",
@@ -69,10 +61,7 @@
       },
       "settings": {
         "import/parsers": {
-          "@typescript-eslint/parser": [
-            ".ts",
-            ".tsx"
-          ]
+          "@typescript-eslint/parser": [".ts", ".tsx"]
         },
         "import/resolver": {
           // "node": {},
