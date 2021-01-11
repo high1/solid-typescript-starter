@@ -1,25 +1,17 @@
-const { DefinePlugin, HotModuleReplacementPlugin } = require('webpack');
+const { DefinePlugin } = require('webpack');
 const { TsconfigPathsPlugin } = require('tsconfig-paths-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const TerserWebackPlugin = require('terser-webpack-plugin');
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const ESLintPlugin = require('eslint-webpack-plugin');
+const { CustomizeRule, mergeWithRules } = require('webpack-merge');
 const { resolve } = require('path');
+const development = require('./webpack.dev');
+const production = require('./webpack.prod');
 
-module.exports = (_, { mode = 'none' }) => ({
+const common = (mode) => ({
   mode,
+  devtool: false,
   output: {
     path: resolve(process.cwd(), 'dist'),
   },
-  devtool: mode === 'development' ? 'inline-source-map' : false,
-  devServer: {
-    port: 3000,
-    hot: true,
-  },
-  target: mode === 'development' ? 'web' : 'browserslist',
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
     plugins: [new TsconfigPathsPlugin({})],
@@ -31,9 +23,6 @@ module.exports = (_, { mode = 'none' }) => ({
         exclude: /node_modules/,
         use: [
           {
-            loader: mode === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
-          },
-          {
             loader: 'css-loader',
             options: {
               modules: { auto: true },
@@ -43,11 +32,11 @@ module.exports = (_, { mode = 'none' }) => ({
         ],
       },
       {
-        test: /\.(png|jpe?g|gif|svg)$/i,
+        test: /\.(png|jpe?g|gif|svg)$/,
         type: 'asset/resource',
       },
       {
-        test: /\.tsx?$/i,
+        test: /\.tsx?$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
       },
@@ -60,41 +49,16 @@ module.exports = (_, { mode = 'none' }) => ({
     new DefinePlugin({
       __MODE__: JSON.stringify(mode),
     }),
-    ...(mode === 'development'
-      ? [new ForkTsCheckerWebpackPlugin(), new HotModuleReplacementPlugin()]
-      : [
-          new MiniCssExtractPlugin(),
-          new ESLintPlugin({
-            emitError: true,
-          }),
-          new CleanWebpackPlugin(),
-        ]),
   ],
-  optimization: {
-    minimizer: [
-      ...(mode === 'development' ? [] : [new TerserWebackPlugin(), new CssMinimizerPlugin()]),
-    ],
-    runtimeChunk: mode === 'development' ? undefined : 'single',
-    splitChunks:
-      mode === 'development'
-        ? false
-        : {
-            chunks: 'all',
-            maxInitialRequests: Infinity,
-            minSize: 0,
-            cacheGroups: {
-              vendor: {
-                test: /[\\/]node_modules[\\/]/,
-                name({ context }) {
-                  if (context) {
-                    const [, name] =
-                      /[\\/]node_modules(?:\\.pnpm)?[\\/](.*?)(?:[\\/]|$)/.exec(context) || [];
-                    return name.replace('@', '');
-                  }
-                  return null;
-                },
-              },
-            },
-          },
-  },
 });
+
+module.exports = (_, { mode = 'none' }) =>
+  mergeWithRules({
+    mode,
+    module: {
+      rules: {
+        test: CustomizeRule.Match,
+        use: CustomizeRule.Prepend,
+      },
+    },
+  })(common(mode), mode === 'production' ? production : development);
