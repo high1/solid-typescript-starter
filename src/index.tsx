@@ -1,4 +1,4 @@
-import { render } from 'solid-js/dom';
+import { render } from 'solid-js/web';
 
 import App from 'components/App';
 import 'index.css';
@@ -10,8 +10,4 @@ if (__MODE__ === 'production') {
 }
 
 const root = document.getElementById('app');
-if (root) {
-  const dispose = render(() => <App />, root);
-  module?.hot?.accept();
-  module?.hot?.dispose(() => dispose());
-}
+if (root) render(() => <App />, root);

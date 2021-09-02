@@ -1,8 +1,8 @@
-const { EvalSourceMapDevToolPlugin, HotModuleReplacementPlugin } = require('webpack');
+const { EvalSourceMapDevToolPlugin } = require('webpack');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 module.exports = {
-  // devtool: 'inline-source-map',
+  devtool: 'eval-cheap-source-map',
   devServer: {
     port: 3000,
     hot: true,
@@ -10,7 +10,6 @@ module.exports = {
   target: 'web',
   plugins: [
     new ForkTsCheckerWebpackPlugin(),
-    new HotModuleReplacementPlugin(),
     new EvalSourceMapDevToolPlugin({
       test: /\.(m?js|ts)x?$/,
     }),
